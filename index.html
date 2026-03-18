@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electricity Classifier</title>
+<style>
+  body {
+    background: #9db8ce;
+    font-family: Arial;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    margin: 0;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+  }
+
+  .classifier-box {
+    background: #02b0fa;
+    color: #ff0303;
+    padding: 15px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  input {
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    width: 150px;
+  }
+
+  button {
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: none;
+    background: #ffc107;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #03f257;
+  }
+
+  .error {
+    color: #fb0000;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Electricity Consumption Classifier</h1>
+
+<div class="classifier-box">
+  <input type="number" id="kwhInput" placeholder="kWh">
+  <button onclick="classifyUsage()">Classify</button>
+</div>
+
+<div id="errorMessage" class="error"></div>
+
+<script>
+function classifyUsage() {
+  const input = document.getElementById("kwhInput").value;
+  const errorDisplay = document.getElementById("errorMessage");
+  const kwh = parseFloat(input);
+  errorDisplay.textContent = "";
+
+  if (isNaN(kwh)) {
+    errorDisplay.textContent = "Enter a valid number!";
+    return;
+  }
+  if (kwh < 0) {
+    errorDisplay.textContent = "Number must be non-negative!";
+    return;
+  }
+
+  let category = "";
+  if (kwh <= 100) category = "Lifeline Consumer: Discounted rates";
+  else if (kwh <= 200) category = "Low Consumption: Normal rate";
+  else if (kwh <= 300) category = "Average Consumption: Typical usage";
+  else if (kwh <= 500) category = "High Consumption: Higher usage";
+  else category = "Very High Consumption: Heavy users";
+
+  alert(category);
+}
+</script>
+
+</body>
+</html>
